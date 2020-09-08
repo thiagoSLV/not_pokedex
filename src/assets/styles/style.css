@@ -1,0 +1,75 @@
+@font-face {
+    font-family: 'Pixel';
+    src: url('../fonts/OldSchoolAdventures-42j9.woff') format('woff');
+    font-style: normal
+}
+
+:root {
+    --normal : #a8a878;
+    --fire : #f08030;
+    --water : #6890f0;
+    --grass : #78c850;
+    --electric : #f8d030;
+    --ice : #98d8d8;
+    --fighting : #c03028;
+    --poison : #a040a0;
+    --ground : #e0be69;
+    --flying : #a890f0;
+    --psychic : #f55888;
+    --bug : #a8b81f;
+    --rock : #b8a038;
+    --ghost : #705798;
+    --dark : #705848;
+    --dragon : #7038f8;
+    --steel : #b8b8d0;
+    --fairy : #f0b6bc;
+
+    --normal_darker : #757554;
+    --fire_darker : #a85921;
+    --water_darker : #4864a8;
+    --grass_darker : #548c38;
+    --electric_darker : #ad9121;
+    --ice_darker : #6a9797;
+    --fighting_darker : #86211c;
+    --poison_darker : #702c70;
+    --ground_darker : #c0a45d;
+    --flying_darker : #7564a8;
+    --psychic_darker : #ab3d5f;
+    --bug_darker : #758015;
+    --rock_darker : #807027;
+    --ghost_darker : #4e3c6a;
+    --dark_darker : #4e3d32;
+    --dragon_darker : #4e27ad;
+    --steel_darker : #808091;
+    --fairy_darker : #c09196;
+
+    --normal_lighter : #c2c2a0;
+    --fire_lighter : #f4a66e;
+    --water_lighter : #95b1f4;
+    --grass_lighter : #a0d884;
+    --electric_lighter : #fade6e;
+    --ice_lighter : #b6e3e3;
+    --fighting_lighter : #d26e68;
+    --poison_lighter : #bc79bc;
+    --ground_lighter : #e9d196;
+    --flying_lighter : #c2b1f4;
+    --psychic_lighter : #f88aab;
+    --bug_lighter : #c2cd62;
+    --rock_lighter : #ecd982;
+    --ghost_lighter : #9a89b6;
+    --dark_lighter : #9a8a7e;
+    --dragon_lighter : #9a73fa;
+    --steel_lighter : #cdcdde;
+    --fairy_lighter : #f1bdc2;
+}
+
+
+/* 'background': `var(--${this.name})`,
+'display':'flex',
+'color': '#fff',
+'border-radius': '7px',
+'justify-content': 'center',
+'cursor': 'pointer',
+'font-family': 'Pixel JFVerdana',
+'padding': '5px',
+'font-size': '8px', */
