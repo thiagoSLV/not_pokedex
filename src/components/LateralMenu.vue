@@ -1,10 +1,19 @@
 <template>
     <div id='lateral_menu'>
-        <input type="text" id="search_bar" v-model="pokemonName" @input="filter($event.target)"/>
+
+        <div id="search">
+            <input type="text" id="search_bar" v-model="pokemonName" @input="changeFilter($event.target)"/>
+        </div>
+
         <div id="types_search">
-            <div id='types_search_title' v-on:click="showTypesSearch = !showTypesSearch;">
-                <p> Types </p>
+            <div id='types_search_title' >
+                <FilterButton 
+                    class="flex_item" 
+                    @click.native="$emit('exclusiveFilterToggle');"
+                />
+                <p class="flex_item" v-on:click="showTypesSearch = !showTypesSearch;"> Types </p>
             </div>
+
             <div id='types_search_btns' v-show="showTypesSearch">
                 <Type v-for="type in types"
                     :isLocked="false"
@@ -14,9 +23,10 @@
                     class='type_btn'
                     :disabled="true"
                     :ref="type"
-                    @click.native="filter($event.target)"
+                    @click.native="changeFilter($event.target)"
                 />
             </div>
+
         </div>
     </div>
 </template>
@@ -24,12 +34,14 @@
 <script>
 
 import Type from './Type.vue'
-import {eventBus} from '../main'
+import FilterButton from './FilterButton.vue'
+import { eventBus } from '../main'
 
 export default {
     name: 'LateralMenu',
     components:{
-        Type
+        Type,
+        FilterButton,
     },
     data(){
         return {
@@ -58,69 +70,84 @@ export default {
         }
     }, 
     methods: {
-        toggle(){
-            console.log(this.showTypesSearch);
-            
-        },
-
-        filter(target){
+        changeFilter($event){
             let filter = {};
             filter.pokemon_name = this.pokemonName;
-            if(this.$refs[target.id] && !this.$refs[target.id][0].isLocked){
-                this.$refs[target.id][0].isActive = !this.$refs[target.id][0].isActive;
-                filter.type_name = this.$refs[target.id][0].name;
-                filter.isActive = this.$refs[target.id][0].isActive;
+            if(this.$refs[$event.id] && !this.$refs[$event.id][0].isLocked){
+                this.$refs[$event.id][0].isActive = !this.$refs[$event.id][0].isActive;
+                filter.type_name = this.$refs[$event.id][0].name;
+                filter.isActive = this.$refs[$event.id][0].isActive;
             }
-            eventBus.$emit('filterChanged',filter);
+            this.$emit('filterChanged',filter);
         },
     },
+    created (){
+        eventBus.$on('spliceFilters', (types) => {
+            this.types.forEach((type) => {
+               if(type != types[0] && type != types[1]){
+                   this.$refs[type][0].isActive = false;
+               }
+            })
+        })
+    }
 }
 </script>
 
 <style scoped>
-    #type_list{
-        overflow: hidden;
-        list-style: none;
-    }
-
     #lateral_menu {
         overflow: hidden;
         padding: 20px;
+    }
 
+    #search{
+        padding: 5px;
+        display: flex;
+        border-radius: 10px;
+        background-image: linear-gradient(#ff0000 50%, #fff 50%);
+        border: 1px solid #000;
+        margin-bottom: 5px;
+    }
+
+    #search_bar {
+        flex: 5;
+        min-width: 0;
+        border-radius: 10px;
+        border: 1px solid #000;
     }
 
     #types_search{
-        border: 5px solid;
-        border-image: linear-gradient(to bottom right, #587e77, #bee4dd);
-        border-image-slice:1;
-        border-image-slice:5;
+        border: 2px solid #000;
         border-radius: 10px;
+        overflow: hidden;
     }
 
     #types_search_title{
-        background: url('../assets/images/doted_bg.jpeg');
+        padding: 5px;
+        display: flex;
+        background: linear-gradient(170deg, #ff0000 70% , #fc6f6f );
         background-size: contain;
         align-self:center;
-        font-family: 'Pixel';
         color: white;
         flex-basis:100%;
         text-align: center;
-        border-radius: 4px;
+    }
+
+    #types_search_title > .flex_item:first-child{
+        flex: 1;
+    }
+
+    #types_search_title > .flex_item:last-child{
+        font-family: 'Pixel';
+        flex: 5;
     }
 
     #types_search_btns {
-        display: flex;
-        flex-wrap: wrap;
-        overflow: hidden;
-        padding: 0 0 4% 4%;
-        background: linear-gradient(to bottom right, #bee4dd, #587e77);
-    }
-
-
-    .type_btn{
-        flex: 1 0 21%;
-        margin-right: 4%;
-        margin-top: 4%;
+        display: grid;
+        padding: 5px;
+        grid-template-columns: repeat(auto-fit, minmax(82px, 1fr));
+        grid-gap: 5px;
+        overflow: none;
+        background: linear-gradient(170deg, #d6d6d6 70% , #ffffff );
     }
 
 </style>

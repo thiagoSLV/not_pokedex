@@ -5,12 +5,10 @@
     :style="style"
   >
         {{capitalizeName}}
-    <!-- <input type="button" :value='capitalizeName'> -->
   </div>
 </template>
 
 <script>
-import {eventBus} from '../main'
 export default {
     name: "Type",
 
@@ -35,20 +33,8 @@ export default {
     },
     computed: {
         capitalizeName: function() {
-            // return this.name.replace(/^\w/, c => c.toUpperCase());
             return this.name.charAt(0).toUpperCase() + this.name.slice(1);
         },
-    },
-    methods: {
-        toggler(){
-            if(!this.isLocked){
-                this.isActive = !this.isActive; 
-                eventBus.$emit('filterChanged', {
-                    'name': this.name,
-                    'isActive': this.isActive
-                });
-            }
-        }
     },
     mounted: function() {
         this.isActive = !this.disabled;
