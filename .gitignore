@@ -2,11 +2,20 @@
 node_modules
 /dist
 
+#cache files
+Cache
+CachedData
+Code Cache
+CachedExtensions
+GPUCache
+Session Storage
+
 # local env files
 .env.local
 .env.*.local
 
 # Log files
+logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
