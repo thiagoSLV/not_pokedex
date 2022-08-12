@@ -9,7 +9,7 @@
             <div id='types_search_title' >
                 <FilterButton 
                     class="flex_item" 
-                    @click.native="$emit('exclusiveFilterToggle');"
+                    @click.native="this.$emit('exclusiveFilterToggle');"
                 />
                 <p class="flex_item" v-on:click="showTypesSearch = !showTypesSearch;"> Types </p>
             </div>
@@ -23,7 +23,7 @@
                     class='type_btn'
                     :disabled="true"
                     :ref="type"
-                    @click.native="changeFilter($event.target)"
+                    @click="changeFilter($event.target)"
                 />
             </div>
 
@@ -43,6 +43,10 @@ export default {
         Type,
         FilterButton,
     },
+    emits: [
+        'filterChanged',
+        'exclusiveFilterToggle'
+    ],
     data(){
         return {
             pokemonName: '',
