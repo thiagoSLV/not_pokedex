@@ -1,17 +1,10 @@
-import Vue from 'vue'
+import { createApp } from 'vue'
 import App from './App.vue'
-// import { BootstrapVue } from 'bootstrap-vue'
-// import 'bootstrap/dist/css/bootstrap.css'
-// import 'bootstrap-vue/dist/bootstrap-vue.css'
 import '../node_modules/bulma/css/bulma.css'
 import './assets/styles/style.css';
+import mitt from 'mitt';
+const emitter = mitt();
 
-export const eventBus = new Vue();
-
-Vue.config.productionTip = false
-const app = Vue.createApp({
-  render: h => h(App),
-})
-
-// app.use(BootstrapVue)
+const app = createApp(App)
+app.config.globalProperties.emitter = emitter;
 app.mount('#app')

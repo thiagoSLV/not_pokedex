@@ -9,7 +9,7 @@
             <div id='types_search_title' >
                 <FilterButton 
                     class="flex_item" 
-                    @click.native="this.$emit('exclusiveFilterToggle');"
+                    @click.native="$emit('exclusiveFilterToggle');"
                 />
                 <p class="flex_item" v-on:click="showTypesSearch = !showTypesSearch;"> Types </p>
             </div>
@@ -23,7 +23,7 @@
                     class='type_btn'
                     :disabled="true"
                     :ref="type"
-                    @click="changeFilter($event.target)"
+                    @click.native="changeFilter($event.target)"
                 />
             </div>
 
@@ -35,7 +35,6 @@
 
 import Type from './Type.vue'
 import FilterButton from './FilterButton.vue'
-import { eventBus } from '../main'
 
 export default {
     name: 'LateralMenu',
@@ -86,7 +85,7 @@ export default {
         },
     },
     created (){
-        eventBus.$on('spliceFilters', (types) => {
+        this.emitter.on('spliceFilters', (types) => {
             this.types.forEach((type) => {
                if(type != types[0] && type != types[1]){
                    this.$refs[type][0].isActive = false;

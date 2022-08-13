@@ -37,7 +37,6 @@ import axios from 'axios';
 import LateralMenu from './LateralMenu.vue'
 import Pokemon from './Pokemon.vue'
 import ScrollMenu from './ScrollMenu.vue'
-import {eventBus} from '../main'
 
 export default {
   name: 'Pokedex',
@@ -73,7 +72,7 @@ export default {
 
     spliceFilters(){
       this.filters.types.splice(0, this.filters.types.length - 2);
-      eventBus.$emit('spliceFilters', this.filters.types);
+      this.emitter.emit('spliceFilters', this.filters.types);
     },
 
     filterChanged(filter){
