@@ -36,7 +36,7 @@ html, body {
 
 #pokedex{
   min-width: 400px;
-  max-width: 75%;
+  /* max-width: 75%; */
   margin:auto
 }
 </style>

@@ -1,6 +1,13 @@
 <template>
   <div id="pokedex">
     <img id="top" src="../assets/images/pokedex_top.png"/>
+
+    <div id="mobile_nav_bar">
+      <MobileNavBar
+        @showFilters="showFilters=!showFilters"
+      />
+    </div>
+
     <div id="screen">
       <div id="list" ref="list">
         <ul id="pokemon_list" >
@@ -21,12 +28,15 @@
       </div>
       
       <div id="lateral_menu_container">
-        <LateralMenu 
-        @filterChanged="filterChanged($event)"
-        @exclusiveFilterToggle="exclusiveFilterActive = !exclusiveFilterActive"/>
+        <LateralMenu
+          @filterChanged="filterChanged($event)"
+          @exclusiveFilterToggle="exclusiveFilterActive = !exclusiveFilterActive"
+          v-show="showFilters"
+        />
       </div>
 
     </div>
+    
     <img id="bottom" src="../assets/images/pokedex_bottom.png"/>
   </div>
 </template>
@@ -37,6 +47,7 @@ import axios from 'axios';
 import LateralMenu from './LateralMenu.vue'
 import Pokemon from './Pokemon.vue'
 import ScrollMenu from './ScrollMenu.vue'
+import MobileNavBar from './MobileNavBar.vue'
 
 export default {
   name: 'Pokedex',
@@ -44,10 +55,12 @@ export default {
     Pokemon,
     LateralMenu,
     ScrollMenu,
-  },
+    MobileNavBar
+},
 
   data() {
     return {
+      showFilters: false,
       pokemons: [],
       filteredList: [],
       filters: {
@@ -124,8 +137,6 @@ export default {
       }
     },
 
-
-
     home(){
       this.$refs.list.scrollTo(0,0);
     },
@@ -185,6 +196,7 @@ export default {
 <style>
 
   #pokedex{
+    width: 75vw;
     display: flex;
     flex-direction: column;
   }
@@ -241,4 +253,22 @@ export default {
     background: linear-gradient(170deg, #0197d3 50% , #ffffff);
     overflow-y: scroll;
   }
+  @media screen and (max-width: 768px) {
+    #pokedex {
+      width: 100vw;
+    }
+    #screen{
+      width: 100vw;
+    }
+    #lateral_menu_container{
+      width: 100vw;
+      position:absolute;
+      z-index: 1;
+    }
+    #mobile_nav_bar{
+      width: 100vw;
+      z-index: 99;
+    }
+  }
+    
 </style>
